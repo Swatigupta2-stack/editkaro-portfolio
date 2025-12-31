@@ -85,3 +85,146 @@ background:linear-gradient(transparent,rgba(0,0,0,.9));
 text-align:center;
 font-size:1rem;
 }
+
+/* Lightbox */
+.lightbox{
+position:fixed;
+top:0;left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.9);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:1000;
+}
+.lightbox video{
+width:90%;
+max-width:800px;
+border-radius:15px;
+}
+.lightbox span{
+position:absolute;
+top:30px;
+right:40px;
+font-size:2rem;
+cursor:pointer;
+}
+
+footer{
+text-align:center;
+padding:20px;
+background:#050505;
+color:#aaa;
+font-size:.9rem;
+}
+
+@media(max-width:600px){
+header h1{font-size:2.2rem}
+.card video{height:260px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Editkaro.in</h1>
+<p>Social Media Marketing & Video Editing Agency</p>
+</header>
+
+<div class="filters">
+<button class="active" onclick="filterVideos('all',this)">All</button>
+<button onclick="filterVideos('short',this)">Short Form</button>
+<button onclick="filterVideos('long',this)">Long Form</button>
+<button onclick="filterVideos('gaming',this)">Gaming</button>
+<button onclick="filterVideos('football',this)">Football</button>
+<button onclick="filterVideos('ecommerce',this)">E-Commerce</button>
+<button onclick="filterVideos('anime',this)">Anime</button>
+<button onclick="filterVideos('documentary',this)">Documentary</button>
+</div>
+
+<section class="portfolio">
+
+<div class="card short" onclick="openLightbox(this)">
+<video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop></video>
+<h3>Instagram Reel Edit</h3>
+</div>
+
+<div class="card long" onclick="openLightbox(this)">
+<video src="https://www.w3schools.com/html/movie.mp4" muted loop></video>
+<h3>YouTube Long Video</h3>
+</div>
+
+<div class="card gaming" onclick="openLightbox(this)">
+<video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop></video>
+<h3>Gaming Montage</h3>
+</div>
+
+<div class="card football" onclick="openLightbox(this)">
+<video src="https://www.w3schools.com/html/movie.mp4" muted loop></video>
+<h3>Football Edit</h3>
+</div>
+
+<div class="card ecommerce" onclick="openLightbox(this)">
+<video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop></video>
+<h3>E-Commerce Ad</h3>
+</div>
+
+<div class="card anime" onclick="openLightbox(this)">
+<video src="https://www.w3schools.com/html/movie.mp4" muted loop></video>
+<h3>Anime AMV</h3>
+</div>
+
+<div class="card documentary" onclick="openLightbox(this)">
+<video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop></video>
+<h3>Documentary Style</h3>
+</div>
+
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+<span onclick="closeLightbox()">✖</span>
+<video controls autoplay></video>
+</div>
+
+<footer>
+© 2025 Editkaro.in | Designed by Swati Gupta
+</footer>
+
+<script>
+const cards=document.querySelectorAll('.card');
+
+cards.forEach(card=>{
+const vid=card.querySelector('video');
+card.addEventListener('mouseenter',()=>vid.play());
+card.addEventListener('mouseleave',()=>vid.pause());
+});
+
+function filterVideos(cat,btn){
+document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+
+cards.forEach(card=>{
+card.style.display=(cat==='all'||card.classList.contains(cat))?'block':'none';
+});
+}
+
+const lightbox=document.getElementById('lightbox');
+const lbVideo=lightbox.querySelector('video');
+
+function openLightbox(card){
+const src=card.querySelector('video').src;
+lbVideo.src=src;
+lightbox.style.display='flex';
+}
+
+function closeLightbox(){
+lbVideo.pause();
+lightbox.style.display='none';
+}
+</script>
+
+</body>
+</html>
